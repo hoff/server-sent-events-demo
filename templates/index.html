@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Datastore and Firebase Auth Example</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Datastore and Firebase Auth Example</h1>
+
+    <h2>Last 10 visits</h2>
+    {% for time in times %}
+    <p>{{ time }}</p>
+    {% endfor %}
+
+    <script>
+      var source = new EventSource("{{ url_for('sse.stream') }}");
+      source.addEventListener(
+        "greeting",
+        function (event) {
+          var data = JSON.parse(event.data);
+          // do what you want with this data
+          console.log("we got some server sent data!");
+        },
+        false
+      );
+    </script>
+  </body>
+</html>
